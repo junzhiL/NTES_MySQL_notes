@@ -1,20 +1,19 @@
 name: 下载 LiteLLM 镜像为 tar
 
-# 支持 手动触发
 on:
-  workflow_dispatch:
+  workflow_dispatch:  # 手动触发
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: 拉取最新镜像
-        run: docker pull ghcr.io/berriai/litellm:main-stable
+      - name: 拉取官方镜像
+        run: docker pull docker.litellm.ai/berriai/litellm:main-stable
 
       - name: 导出为 tar 文件
-        run: docker save -o litellm-new.tar ghcr.io/berriai/litellm:main-stable
+        run: docker save -o litellm-new.tar docker.litellm.ai/berriai/litellm:main-stable
 
-      - name: 上传为可下载文件
+      - name: 上传为可下载产物
         uses: actions/upload-artifact@v4
         with:
           name: litellm-image
